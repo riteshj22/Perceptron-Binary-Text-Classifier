@@ -4,20 +4,11 @@ import os, random
 ham_files = 0
 spam_files = 0
 
-spam = 0
-ham = 0
 
 
 ham_predicted = 0
 spam_predicted = 0
 
-#  To calculate the message spam and ham probability
-
-msg_ham_prob = 0.0
-msg_spam_prob = 0.0
-
-ham_flag = False
-spam_flag = False
 
 #  Count of correctly identified documents i.e spam/ham
 
@@ -77,27 +68,11 @@ for root, sub, files in os.walk(dev_dir):
         listdir_fullpath(root, 1)
         # list1.extend(f2)
 
-random.shuffle(list1)
+# random.shuffle(list1)
 
 for key in list1:
-    # ham_flag = False
-    # spam_flag = False
-    # # if "/" in root:
-    #     parent = root.split("/")
-    # elif "\\" in root:
-    #     parent = root.split("\\")
-    # parent = parent[-1]
-    # parent = os.path.basename(root)
-    # if parent.lower() == "ham":
-    #     ham_flag = True
-    #     y = -1
-    # if parent.lower() == "spam":
-    #     spam_flag = True
-    #     y = 1
+
     y = filenames[key][0]
-
-    # if ham_flag or spam_flag:
-
 
     alpha = 0
     file_ptr = open(key, "r", encoding="latin1")
@@ -126,7 +101,7 @@ for key in list1:
         spam_predicted += 1
         if y == 1:
             spam_predicted_correct += 1
-    else:
+    if alpha <= 0:
         # print("ham")
         # ham += 1
         # str1 = "ham " + str(os.path.join(root, name))
@@ -173,7 +148,7 @@ spam_recall = spam_predicted_correct/spam_files
 ham_f1 = (2*ham_precision*ham_recall)/(ham_precision+ham_recall)
 spam_f1 = (2*spam_precision*spam_recall)/(spam_precision+spam_recall)
 #
-# print(ham_predicted_correct, ham_predicted, ham_files, spam_predicted_correct, spam_predicted, spam_files)
+print(ham_predicted_correct, ham_predicted, ham_files, spam_predicted_correct, spam_predicted, spam_files)
 # print("ham accuracy", format(ham_accuracy, '.16f'))
 # print("spam accuracy", format(spam_accuracy, '.16f'))
 # print("spam precision", format(spam_precision, '.16f'))
