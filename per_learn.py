@@ -102,7 +102,7 @@ for i in range(1, 20):
         product = 0
         y = filenames[key][0]
         # list1 = filenames[key][1]
-        l += len(filenames[key][1])
+        # l += len(filenames[key][1])
         for token in filenames[key][1]:
             alpha += (weight[token] * filenames[key][1][token])
         alpha += bias
@@ -112,7 +112,7 @@ for i in range(1, 20):
                 t = (y*filenames[key][1][token])
                 weight[token] += t
             bias += y
-print(len(weight))
+# print(len(weight))
 with open('per_model.txt', "w", encoding="latin1") as f:
     # str1 = ""
     # str1 = "\n".join(['%s %s' % (key, value) for (key, value) in vocabulary.items()])
