@@ -95,7 +95,7 @@ for key in list1:
 
 l = 0
 for i in range(1, 20):
-    print(i)
+    # print(i)
     random.shuffle(list1)
     for key in list1:
         alpha = 0
