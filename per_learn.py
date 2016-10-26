@@ -112,10 +112,6 @@ for i in range(1, 20):
             bias += y
 
 
-
-# print(vocabulary)
-#   Format for the  Model File
-#
 neg = 0
 pos = 0
 zero = 0
