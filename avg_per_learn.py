@@ -99,7 +99,7 @@ for token in avg_weights:
 avg_bias = bias - (inverse_counter_value * avg_bias)
 
 
-with open('per_model1.txt', "w", encoding="latin1") as f:
+with open('per_model.txt', "w", encoding="latin1") as f:
     # str1 = ""
     # str1 = "\n".join(['%s %s' % (key, value) for (key, value) in vocabulary.items()])
 
