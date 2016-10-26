@@ -11,7 +11,7 @@ filenames = {}
 
 ham_files = 0
 spam_files = 0
-
+weight = {}
 # ******************************************** Traversing the given directory *****************************************#
 low = str.lower
 # combine = os.path.join
@@ -71,29 +71,31 @@ for key in list1:
     file_ptr = open(key, "r", encoding="latin1")
     token_list = file_ptr.read().split()
     for token in token_list:
-
+        if token not in weight:
+            weight[token] = 0
         if token not in filenames[key][1]:
-            filenames[key][1][token] = [0, 1]
+            filenames[key][1][token] = 1
+
             # alpha += vocabulary[token]
         else:
-            filenames[key][1][token][1] += 1
+            filenames[key][1][token] += 1
             # alpha += vocabulary[token]
     for token in filenames[key][1]:
-        alpha += (filenames[key][1][token][0] * filenames[key][1][token][1])
+        alpha += (weight[token] * filenames[key][1][token])
     alpha += bias
     product = y * alpha
     if product <= 0:
         for token in filenames[key][1]:
-            t = (y*filenames[key][1][token][1])
+            t = (y*filenames[key][1][token])
             # print(token, t)
-            filenames[key][1][token][0] += t
+            weight[token] += t
         bias += y
     file_ptr.close()
 
 
 l = 0
 for i in range(1, 20):
-    # print(i)
+    print(i)
     random.shuffle(list1)
     for key in list1:
         alpha = 0
@@ -102,29 +104,25 @@ for i in range(1, 20):
         # list1 = filenames[key][1]
         l += len(filenames[key][1])
         for token in filenames[key][1]:
-            alpha += (filenames[key][1][token][0] * filenames[key][1][token][1])
+            alpha += (weight[token] * filenames[key][1][token])
         alpha += bias
         product = y * alpha
         if product <= 0:
             for token in filenames[key][1]:
-                t = (y*filenames[key][1][token][1])
-                filenames[key][1][token][0] += t
+                t = (y*filenames[key][1][token])
+                weight[token] += t
             bias += y
-
-
-neg = 0
-pos = 0
-zero = 0
+print(len(weight))
 with open('per_model.txt', "w", encoding="latin1") as f:
     # str1 = ""
     # str1 = "\n".join(['%s %s' % (key, value) for (key, value) in vocabulary.items()])
-    for file in list1:
-        for key,value in filenames[file][1].items():
-            str1 = ''
-            str1 += str(key)
-            str1 += " "
 
-            str1 += str(value[0])
-            f.write(str1 + '\n')
-            # f.write(str1)
+    for key,value in weight.items():
+        str1 = ''
+        str1 += str(key)
+        str1 += " "
+
+        str1 += str(value)
+        f.write(str1 + '\n')
+        # f.write(str1)
 f.close()
