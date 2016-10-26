@@ -30,7 +30,7 @@ fptr = open("per_model.txt", "r", encoding="latin1")
 data = fptr.read().splitlines()
 for record in data:
     content = record.split()
-    model[content[0]] = int(content[1])
+    model[content[0]] = float(content[1])
 fptr.close()
 
 # ***************************************** Stop Words Filter **********************************************************
@@ -49,6 +49,7 @@ bias = 0
 y = 0
 list1 = []
 filenames = {}
+
 
 def listdir_fullpath(d, value):
 
@@ -149,12 +150,12 @@ ham_f1 = (2*ham_precision*ham_recall)/(ham_precision+ham_recall)
 spam_f1 = (2*spam_precision*spam_recall)/(spam_precision+spam_recall)
 #
 # print(ham_predicted_correct, ham_predicted, ham_files, spam_predicted_correct, spam_predicted, spam_files)
-# print("ham accuracy", format(ham_accuracy, '.16f'))
-# print("spam accuracy", format(spam_accuracy, '.16f'))
-# print("spam precision", format(spam_precision, '.16f'))
-# print("spam recall", format(spam_recall, '.16f'))
-# print("spam F1", format(spam_f1, '.16f'))
-# print("ham precision", format(ham_precision, '.16f'))
-# print("ham recall", format(ham_recall, '.16f'))
-# print("ham F1", format(ham_f1, '.16f'))
+print("ham accuracy", format(ham_accuracy, '.16f'))
+print("spam accuracy", format(spam_accuracy, '.16f'))
+print("spam precision", format(spam_precision, '.16f'))
+print("spam recall", format(spam_recall, '.16f'))
+print("spam F1", format(spam_f1, '.16f'))
+print("ham precision", format(ham_precision, '.16f'))
+print("ham recall", format(ham_recall, '.16f'))
+print("ham F1", format(ham_f1, '.16f'))
 
