@@ -74,7 +74,7 @@ for key in list1:
 
 
 l = 0
-for i in range(1, 20):
+for i in range(1, 30):
     # print(i)
     random.shuffle(list1)
     for key in list1:
@@ -102,7 +102,8 @@ avg_bias = bias - (inverse_counter_value * avg_bias)
 with open('per_model.txt', "w", encoding="latin1") as f:
     # str1 = ""
     # str1 = "\n".join(['%s %s' % (key, value) for (key, value) in vocabulary.items()])
-
+    f.write(str(avg_bias))
+    f.write("\n")
     for token, weight in avg_weights.items():
         str1 = ''
         str1 += str(token)

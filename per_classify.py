@@ -4,7 +4,8 @@ import os, random
 ham_files = 0
 spam_files = 0
 
-
+ham_precision = 0
+spam_precision = 0
 
 ham_predicted = 0
 spam_predicted = 0
@@ -28,9 +29,12 @@ file_name = sys.argv[2]
 
 fptr = open("per_model.txt", "r", encoding="latin1")
 data = fptr.read().splitlines()
-for record in data:
-    content = record.split()
-    model[content[0]] = float(content[1])
+for i, record in enumerate(data):
+    if i == 0:
+        bias = float(record)
+    else:
+        content = record.split()
+        model[content[0]] = float(content[1])
 fptr.close()
 
 # ***************************************** Stop Words Filter **********************************************************
@@ -45,7 +49,6 @@ fptr.close()
 
 
 f1 = open(file_name, "w", encoding="latin1")
-bias = 0
 y = 0
 list1 = []
 filenames = {}
@@ -86,14 +89,16 @@ for key in list1:
             filenames[key][1][token] += 1
     # print(filenames[key][1])
     # print(alpha)
+    # print(filenames[key][1])
     for token in filenames[key][1]:
+        # print(model[token])
         if token in model.keys():
             # print(model[token], filenames[key][1][token])
             alpha += (model[token] * filenames[key][1][token])
-
+            # print(alpha)
     alpha += bias
     # if y == -1:
-    #     print(alpha)
+    # print(alpha)
     if alpha > 0:
         # print("spam")
         # spam += 1
@@ -135,8 +140,8 @@ if spam_files != 0:
     spam_accuracy = spam_predicted_correct/spam_files
 
 # print(format(ham_accuracy, '.16f'), format(spam_accuracy, '.16f'))
-
-# *********************************** Calculating the precision, recall and F1 score values ****************************
+# print(ham_predicted,spam_predicted)
+# # *********************************** Calculating the precision, recall and F1 score values ****************************
 if (ham_predicted != 0):
     ham_precision = ham_predicted_correct/ham_predicted
 if (spam_predicted != 0):
@@ -149,13 +154,13 @@ spam_recall = spam_predicted_correct/spam_files
 ham_f1 = (2*ham_precision*ham_recall)/(ham_precision+ham_recall)
 spam_f1 = (2*spam_precision*spam_recall)/(spam_precision+spam_recall)
 #
-# print(ham_predicted_correct, ham_predicted, ham_files, spam_predicted_correct, spam_predicted, spam_files)
-# print("ham accuracy", format(ham_accuracy, '.16f'))
-# print("spam accuracy", format(spam_accuracy, '.16f'))
-# print("spam precision", format(spam_precision, '.16f'))
-# print("spam recall", format(spam_recall, '.16f'))
-# print("spam F1", format(spam_f1, '.16f'))
-# print("ham precision", format(ham_precision, '.16f'))
-# print("ham recall", format(ham_recall, '.16f'))
-# print("ham F1", format(ham_f1, '.16f'))
-#
+print(ham_predicted_correct, ham_predicted, ham_files, spam_predicted_correct, spam_predicted, spam_files)
+print("ham accuracy", format(ham_accuracy, '.16f'))
+print("spam accuracy", format(spam_accuracy, '.16f'))
+print("spam precision", format(spam_precision, '.16f'))
+print("spam recall", format(spam_recall, '.16f'))
+print("spam F1", format(spam_f1, '.16f'))
+print("ham precision", format(ham_precision, '.16f'))
+print("ham recall", format(ham_recall, '.16f'))
+print("ham F1", format(ham_f1, '.16f'))
+

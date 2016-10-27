@@ -58,16 +58,14 @@ for root, sub, files in os.walk(dir_path):
         # list1.extend(f2)
 
 random.shuffle(list1)
-# print(len(list1))
 
 bias = 0
 u = 0
+
 for key in list1:
-    # print(1)
     alpha = 0
     product = 0
     y = filenames[key][0]
-    # print(y)
     file_ptr = open(key, "r", encoding="latin1")
     token_list = file_ptr.read().split()
     for token in token_list:
@@ -75,20 +73,15 @@ for key in list1:
             weight[token] = 0
         if token not in filenames[key][1]:
             filenames[key][1][token] = 1
-
-            # alpha += vocabulary[token]
         else:
             filenames[key][1][token] += 1
-            # alpha += vocabulary[token]
     for token in filenames[key][1]:
         alpha += (weight[token] * filenames[key][1][token])
     alpha += bias
     product = y * alpha
     if product <= 0:
         for token in filenames[key][1]:
-            t = (y*filenames[key][1][token])
-            # print(token, t)
-            weight[token] += t
+            weight[token] += (y*filenames[key][1][token])
         bias += y
     file_ptr.close()
 
@@ -101,28 +94,25 @@ for i in range(1, 20):
         alpha = 0
         product = 0
         y = filenames[key][0]
-        # list1 = filenames[key][1]
-        # l += len(filenames[key][1])
         for token in filenames[key][1]:
             alpha += (weight[token] * filenames[key][1][token])
         alpha += bias
         product = y * alpha
         if product <= 0:
             for token in filenames[key][1]:
-                t = (y*filenames[key][1][token])
-                weight[token] += t
+                weight[token] += (y*filenames[key][1][token])
             bias += y
-# print(len(weight))
+
 with open('per_model.txt', "w", encoding="latin1") as f:
     # str1 = ""
-    # str1 = "\n".join(['%s %s' % (key, value) for (key, value) in vocabulary.items()])
-
-    for key,value in weight.items():
+    # str1 = "\n".join(['%s %s' % (word, weight) for (word, weight) in vocabulary.items()])
+    f.write(str(bias))
+    f.write("\n")
+    for key, weight in weight.items():
         str1 = ''
         str1 += str(key)
         str1 += " "
-
-        str1 += str(value)
+        str1 += str(weight)
         f.write(str1 + '\n')
-        # f.write(str1)
+    # f.write(str1)
 f.close()
