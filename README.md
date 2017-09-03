@@ -18,20 +18,20 @@ Instructions to Run:
 
 Step 1) Objective: Creating a classification model to be used as a reference for future use by learning from the tokenized dataset.
 
-Program file: nblearn.py
+  Program file: nblearn.py
 
-Input: It takes command line input that is a directory path to tokenized data For eg) C:\Users\XYX\Desktop\data_folder
+  Input: It takes command line input that is a directory path to tokenized data For eg) C:\Users\XYX\Desktop\data_folder
 
-Output: Model file
+  Output: Model file
 
-  You can find the sample model file generated previously for a dataset named as nbmodel.txt
+    You can find the sample model file generated previously for a dataset named as nbmodel.txt
 
 Step 2)
 
-Objective: Classifying the random data using the model file generated in step 1.
+  Objective: Classifying the random data using the model file generated in step 1.
 
-Program file: nbclassify.py / avg_perclassify.py
+  Program file: nbclassify.py / avg_perclassify.py
 
-Input: 1) permodel.txt file 2) Random tokenized data file.
+  Input: 1) permodel.txt file 2) Random tokenized data file.
 
-Output: the efficiency of the program for eg) 99/100
+  Output: the efficiency of the program for eg) 99/100
